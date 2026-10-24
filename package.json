@@ -1,0 +1,16 @@
+{
+  "name": "soldier-rush",
+  "version": "1.0.0",
+  "private": true,
+  "description": "小兵冲冲冲：10 关合兵冲锋 H5 小游戏",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run scripts/serve.js",
+    "build": "bun run scripts/build.js",
+    "test": "bun test",
+    "check": "bun test && bun run scripts/check-static.js"
+  },
+  "engines": {
+    "bun": ">=1.1"
+  }
+}

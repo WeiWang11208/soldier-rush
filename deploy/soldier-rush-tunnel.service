@@ -1,0 +1,15 @@
+[Unit]
+Description=Reverse SSH tunnel publishing Soldier Rush to personal-agent-server
+After=network-online.target soldier-rush.service
+Wants=network-online.target soldier-rush.service
+
+[Service]
+User=personal-agent-native
+Environment=HOME=/var/lib/personal-agent-native/home
+ExecStart=/usr/bin/ssh -NT -o BatchMode=yes -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -R 127.0.0.1:3473:127.0.0.1:3472 personal-agent-server
+Restart=always
+RestartSec=5
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

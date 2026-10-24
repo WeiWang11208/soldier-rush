@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="小兵冲冲冲">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1f33"/>
+      <stop offset="0.55" stop-color="#071523"/>
+      <stop offset="1" stop-color="#030a12"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#155e75"/>
+      <stop offset="1" stop-color="#082f49"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a5f3fc"/>
+      <stop offset="0.55" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fef9c3"/>
+      <stop offset="0.5" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.55">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <path d="M256 178 L438 470 L74 470 Z" fill="url(#road)" opacity="0.85"/>
+  <path d="M256 178 L438 470" stroke="#2dd4bf" stroke-width="5" opacity="0.55"/>
+  <path d="M256 178 L74 470" stroke="#2dd4bf" stroke-width="5" opacity="0.55"/>
+  <path d="M256 214 L256 470" stroke="#7dd3fc" stroke-width="3" stroke-dasharray="24 26" opacity="0.42"/>
+
+  <circle cx="256" cy="188" r="74" fill="#fbbf24" opacity="0.16" filter="url(#soft)"/>
+
+  <g transform="translate(256 330)">
+    <!-- 后排士兵 -->
+    <g transform="translate(-76 6) scale(0.82)" opacity="0.78">
+      <ellipse cx="0" cy="52" rx="26" ry="8" fill="#000" opacity="0.45"/>
+      <rect x="-16" y="-4" width="32" height="42" rx="9" fill="#0e7490"/>
+      <circle cx="0" cy="-18" r="14" fill="#fde7c8"/>
+      <path d="M-15 -20a15 15 0 0 1 30 0z" fill="#155e75"/>
+      <rect x="-17" y="-22" width="34" height="4" rx="2" fill="#0c4a6e"/>
+    </g>
+    <g transform="translate(78 10) scale(0.76)" opacity="0.7">
+      <ellipse cx="0" cy="52" rx="24" ry="7" fill="#000" opacity="0.45"/>
+      <rect x="-15" y="-4" width="30" height="42" rx="9" fill="#0e7490"/>
+      <circle cx="0" cy="-18" r="13" fill="#fde7c8"/>
+      <path d="M-14 -20a14 14 0 0 1 28 0z" fill="#155e75"/>
+      <rect x="-16" y="-22" width="32" height="4" rx="2" fill="#0c4a6e"/>
+    </g>
+
+    <!-- 主角士兵 -->
+    <g transform="translate(0 0)">
+      <ellipse cx="0" cy="62" rx="36" ry="11" fill="#000" opacity="0.5"/>
+      <rect x="-12" y="30" width="9" height="28" rx="4" fill="#075985"/>
+      <rect x="4" y="30" width="9" height="28" rx="4" fill="#075985"/>
+      <rect x="-24" y="-12" width="48" height="52" rx="13" fill="url(#hero)"/>
+      <rect x="-24" y="16" width="48" height="10" rx="4" fill="#075985" opacity="0.9"/>
+      <rect x="-15" y="-2" width="30" height="13" rx="4" fill="#082f49" opacity="0.5"/>
+      <circle cx="0" cy="-31" r="19" fill="#fde7c8"/>
+      <path d="M-20 -34a20 20 0 0 1 40 0z" fill="#0c4a6e"/>
+      <rect x="-22" y="-38" width="44" height="6" rx="3" fill="#155e75"/>
+      <circle cx="-7" cy="-30" r="2.4" fill="#0f172a"/>
+      <circle cx="7" cy="-30" r="2.4" fill="#0f172a"/>
+      <path d="M-4 -24q4 4 8 0" stroke="#b45309" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M20 -2 L52 -12" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+      <rect x="46" y="-17" width="9" height="12" rx="2" fill="#94a3b8" transform="rotate(-18 46 -17)"/>
+      <path d="M-24 -6 L-45 -40" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-45 -40 L-45 -64" stroke="#94a3b8" stroke-width="3"/>
+      <path d="M-45 -64 L-31 -57 L-45 -50 Z" fill="#2dd4bf"/>
+    </g>
+  </g>
+
+  <g transform="translate(406 122) rotate(12)">
+    <path d="M0 -26 L8 -8 L27 -8 L12 4 L18 23 L0 11 L-18 23 L-12 4 L-27 -8 L-8 -8 Z" fill="url(#gold)" stroke="#fff7d6" stroke-width="2"/>
+  </g>
+
+  <path d="M70 108 L106 108 M88 90 L88 126" stroke="#5eead4" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+  <circle cx="424" cy="372" r="6" fill="#5eead4" opacity="0.65"/>
+  <circle cx="94" cy="330" r="4" fill="#38bdf8" opacity="0.55"/>
+  <circle cx="388" cy="230" r="3" fill="#fbbf24" opacity="0.7"/>
+</svg>
