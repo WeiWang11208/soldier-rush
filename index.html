@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="小兵冲冲冲" />
+    <meta
+      name="description"
+      content="小兵冲冲冲：一款适合手机网页游玩的合兵冲锋小游戏。10 个关卡、7 种道具、倍数门、敌军拦截与终极 BOSS。"
+    />
+    <title>小兵冲冲冲 · H5 合兵冲锋</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+    <link rel="apple-touch-icon" href="./icon-180.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene" aria-label="小兵冲冲冲游戏画面"></canvas>
+      <div class="grain" aria-hidden="true"></div>
+
+      <div id="hud" class="hud hidden">
+        <div class="hud-top">
+          <div class="hud-pill hud-count">
+            <span class="hud-ico">兵</span>
+            <b id="hud-count">0</b>
+          </div>
+          <div class="hud-center">
+            <div class="hud-meta">
+              <span id="hud-level-name">第 1 关</span>
+              <span id="hud-progress-label">0%</span>
+            </div>
+            <div class="progress"><i id="hud-progress"></i></div>
+          </div>
+          <div class="hud-pill hud-coin">
+            <span class="coin-dot" aria-hidden="true"></span>
+            <b id="hud-coins">0</b>
+          </div>
+          <button id="btn-pause" class="icon-btn" aria-label="暂停游戏">Ⅱ</button>
+        </div>
+
+        <div id="boss-bar" class="boss-bar hidden">
+          <div class="boss-bar-head">
+            <span id="boss-name">BOSS</span>
+            <span class="boss-bar-tag">最终决战</span>
+          </div>
+          <div class="boss-track"><i id="boss-fill"></i></div>
+        </div>
+
+        <div id="hud-buffs" class="hud-buffs"></div>
+
+        <div class="hud-bottom">
+          <div id="item-slots" class="item-slots"></div>
+        </div>
+        <div id="hint" class="hint">左右拖动转向 · 蓝色门更划算</div>
+      </div>
+
+      <section id="screen-home" class="screen home">
+        <button id="btn-mute" class="corner-btn" aria-label="切换音效">♪</button>
+        <div class="home-top">
+          <div class="brand">
+            <div class="brand-kicker"><span></span>H5 · 合兵冲锋<span></span></div>
+            <h1>小兵<span class="grad">冲冲冲</span></h1>
+            <p class="brand-sub">合兵成军 · 闯过倍数门 · 决战终焉之王</p>
+            <div class="mini-squad" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+        </div>
+        <div class="home-bottom">
+          <div class="stat-row">
+            <div class="stat-chip"><span>金币</span><b id="home-coins">0</b></div>
+            <div class="stat-chip"><span>星星</span><b id="home-stars">0/30</b></div>
+            <div class="stat-chip"><span>进度</span><b id="home-progress">第 1 关</b></div>
+          </div>
+          <div class="btn-col">
+            <button id="btn-play" class="btn btn-primary btn-hero">
+              <span id="btn-play-label">开始冲锋</span>
+              <small id="home-continue">第 1 关 · 新兵出征</small>
+            </button>
+            <div class="btn-row">
+              <button id="btn-levels" class="btn btn-ghost">关卡</button>
+              <button id="btn-shop" class="btn btn-ghost">道具商店</button>
+              <button id="btn-help" class="btn btn-ghost">玩法</button>
+            </div>
+          </div>
+          <p class="home-foot">离线可玩 · 自动存档 · 适配手机浏览器</p>
+        </div>
+      </section>
+
+      <section id="screen-levels" class="screen panel-screen hidden">
+        <header class="screen-head">
+          <button class="icon-btn back-btn" id="btn-levels-back" aria-label="返回">‹</button>
+          <div>
+            <p class="screen-kicker">CAMPAIGN</p>
+            <h2>选择关卡</h2>
+          </div>
+          <div class="head-stat"><span>★</span><b id="levels-stars">0/30</b></div>
+        </header>
+        <div class="screen-body">
+          <p class="screen-note">每关首次通关解锁下一关。三星要求最终战保留 65% 以上兵力。</p>
+          <div id="level-grid" class="level-grid"></div>
+        </div>
+      </section>
+
+      <section id="screen-prep" class="screen panel-screen hidden">
+        <header class="screen-head">
+          <button class="icon-btn back-btn" id="btn-prep-back" aria-label="返回">‹</button>
+          <div>
+            <p class="screen-kicker">LOADOUT</p>
+            <h2>出征准备</h2>
+          </div>
+          <div class="head-stat"><span class="coin-dot"></span><b id="prep-coins">0</b></div>
+        </header>
+        <div class="screen-body">
+          <div id="prep-banner" class="prep-banner">
+            <div class="prep-glow"></div>
+            <span id="prep-badge" class="prep-badge">第 1 关</span>
+            <h3 id="prep-level-name">新兵出征</h3>
+            <p id="prep-desc">凑够一支队伍，闯过倍数门。</p>
+            <div class="prep-meta">
+              <span id="prep-theme-name">青草平原</span>
+              <span id="prep-tip">左右拖动改变路线</span>
+            </div>
+            <div class="prep-stats">
+              <div><small>初始兵力</small><b id="prep-start-count">5</b></div>
+              <div><small>最终 BOSS</small><b id="prep-boss-name">木甲队长</b></div>
+              <div><small>最佳纪录</small><b id="prep-best">—</b></div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <h3>携带道具 <small>最多 2 个</small></h3>
+            <button id="btn-prep-shop" class="text-btn">去商店 ›</button>
+          </div>
+          <div id="loadout-slots" class="loadout-slots"></div>
+          <div id="prep-items" class="item-pick-grid"></div>
+          <p class="screen-note center">道具在关卡内点击释放；金币、双倍与复活为被动生效。</p>
+          <button id="btn-start" class="btn btn-primary btn-start">开始冲锋</button>
+        </div>
+      </section>
+
+      <section id="screen-shop" class="screen panel-screen hidden">
+        <header class="screen-head">
+          <button class="icon-btn back-btn" id="btn-shop-back" aria-label="返回">‹</button>
+          <div>
+            <p class="screen-kicker">SUPPLY</p>
+            <h2>道具商店</h2>
+          </div>
+          <div class="head-stat"><span class="coin-dot"></span><b id="shop-coins">0</b></div>
+        </header>
+        <div class="screen-body">
+          <div class="section-title">
+            <h3>战前补给 <small>每个最多囤 9 个</small></h3>
+            <span id="shop-note" class="section-tag">金币可通过通关和沿途拾取获得</span>
+          </div>
+          <div id="shop-items" class="shop-grid"></div>
+          <div class="section-title">
+            <h3>永久训练</h3>
+            <span class="section-tag">每级永久生效</span>
+          </div>
+          <div id="shop-upgrades" class="upgrade-list"></div>
+        </div>
+      </section>
+
+      <div id="modal-pause" class="modal hidden">
+        <div class="modal-card">
+          <p class="screen-kicker">PAUSED</p>
+          <h2>喘口气</h2>
+          <p class="modal-sub">队伍会在原地等你。</p>
+          <div class="btn-col">
+            <button id="btn-resume" class="btn btn-primary">继续冲锋</button>
+            <button id="btn-restart" class="btn btn-ghost">重新开始本关</button>
+            <button id="btn-quit" class="btn btn-ghost danger">撤出关卡</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-result" class="modal hidden">
+        <div class="modal-card result-card">
+          <div id="result-emblem" class="result-emblem">★</div>
+          <p id="result-kicker" class="screen-kicker">VICTORY</p>
+          <h2 id="result-title">关卡完成</h2>
+          <p id="result-sub" class="modal-sub">木甲队长已被击破</p>
+          <div id="result-stars" class="result-stars"><i>★</i><i>★</i><i>★</i></div>
+          <div id="result-stats" class="result-stats"></div>
+          <div class="result-coins">
+            <span>本关金币</span>
+            <b id="result-coins">+0</b>
+            <small id="result-breakdown"></small>
+          </div>
+          <div class="btn-col">
+            <button id="btn-next" class="btn btn-primary">下一关</button>
+            <div class="btn-row">
+              <button id="btn-retry" class="btn btn-ghost">再来一次</button>
+              <button id="btn-result-home" class="btn btn-ghost">返回主页</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-help" class="modal hidden">
+        <div class="modal-card help-card">
+          <p class="screen-kicker">HOW TO PLAY</p>
+          <h2>冲锋指南</h2>
+          <ol class="help-list">
+            <li><b>拖动转向</b>：在屏幕上左右拖动，队伍会跟着你的手指跑。</li>
+            <li><b>选对倍数门</b>：绿色 <em>+N / ×N</em> 增加兵力，红色 <em>-N / ÷N</em> 会减员。</li>
+            <li><b>绕开敌人</b>：兵力比敌人多才能打赢；打不过就从旁边绕过去。</li>
+            <li><b>用好道具</b>：出征前最多带 2 个，关卡内点按钮释放；补给箱也会掉落临时增益。</li>
+            <li><b>决战 BOSS</b>：兵力越多，输出越高、打完保留得越多。三星需要保留 65% 以上。</li>
+          </ol>
+          <p class="help-tip">小技巧：把 ×N 门留到基数变大后再吃，收益会滚雪球。</p>
+          <button id="btn-help-close" class="btn btn-primary">明白了</button>
+        </div>
+      </div>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <noscript><div class="noscript">请启用 JavaScript 后再开始游戏。</div></noscript>
+    </div>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

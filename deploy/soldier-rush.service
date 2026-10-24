@@ -1,0 +1,20 @@
+[Unit]
+Description=Soldier Rush H5 game static server (Debian origin)
+After=network.target
+
+[Service]
+DynamicUser=yes
+Environment=HOST=127.0.0.1 PORT=3472
+WorkingDirectory=/opt/soldier-rush/current
+ExecStart=/opt/soldier-rush/bin/bun /opt/soldier-rush/current/server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target
